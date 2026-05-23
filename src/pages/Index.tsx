@@ -287,8 +287,8 @@ export default function Index() {
               >
                 Начать карьеру
               </MagneticButton>
-              <MagneticButton size="lg" variant="secondary" onClick={() => scrollToSection(2)}>
-                Возможности
+              <MagneticButton size="lg" variant="secondary" onClick={() => navigate("/match/new")}>
+                Добавить матч
               </MagneticButton>
             </div>
           </div>
