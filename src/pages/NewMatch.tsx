@@ -116,42 +116,45 @@ export default function NewMatch() {
           </button>
         </nav>
 
-        <div className="flex flex-1 flex-col px-6 pb-16 md:px-12">
+        <div className="flex flex-1 flex-col overflow-y-auto px-6 pb-16 md:px-12">
           <div className="mx-auto w-full max-w-2xl">
 
             {/* Score header */}
             <div className="mb-8 flex items-center justify-between gap-4">
-              <div className="flex-1 text-right">
-                <p className="font-sans text-sm font-medium text-foreground">{MY_CLUB}</p>
+              {/* My club */}
+              <div className="flex flex-col items-center gap-2">
+                <p className="font-sans text-sm font-medium text-foreground text-center">{MY_CLUB}</p>
                 <p className="font-mono text-xs text-foreground/40">{isHome ? "Дома" : "В гостях"}</p>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <button onClick={() => setScoreHome(Math.max(0, scoreHome - 1))} className="flex h-8 w-8 items-center justify-center border border-foreground/20 text-foreground/50 hover:border-foreground/40 hover:text-foreground transition-colors">
-                  <Icon name="Minus" size={12} />
-                </button>
-                <div className="text-center">
-                  <div className="font-sans text-5xl font-light tracking-tight text-foreground">
-                    {scoreHome}<span className="text-foreground/30 mx-2">:</span>{scoreAway}
-                  </div>
-                  <div className={`mt-1 font-mono text-xs font-bold ${resultColor}`}>{result}</div>
-                </div>
-                <button onClick={() => setScoreAway(Math.max(0, scoreAway - 1))} className="flex h-8 w-8 items-center justify-center border border-foreground/20 text-foreground/50 hover:border-foreground/40 hover:text-foreground transition-colors">
-                  <Icon name="Minus" size={12} />
-                </button>
-              </div>
-
-              <div className="flex-1">
-                <div className="flex gap-2 mb-1 justify-start">
-                  <button onClick={() => setScoreHome((s) => s + 1)} className="flex h-6 w-6 items-center justify-center border border-foreground/20 text-foreground/50 hover:border-foreground/40 hover:text-foreground transition-colors">
-                    <Icon name="Plus" size={10} />
+                <div className="flex gap-1">
+                  <button onClick={() => setScoreHome((s) => s + 1)} className="flex h-7 w-7 items-center justify-center border border-foreground/20 text-foreground/50 hover:border-foreground/40 hover:text-foreground transition-colors">
+                    <Icon name="Plus" size={11} />
                   </button>
-                  <button onClick={() => setScoreAway((s) => s + 1)} className="flex h-6 w-6 items-center justify-center border border-foreground/20 text-foreground/50 hover:border-foreground/40 hover:text-foreground transition-colors">
-                    <Icon name="Plus" size={10} />
+                  <button onClick={() => setScoreHome((s) => Math.max(0, s - 1))} className="flex h-7 w-7 items-center justify-center border border-foreground/20 text-foreground/50 hover:border-foreground/40 hover:text-foreground transition-colors">
+                    <Icon name="Minus" size={11} />
                   </button>
                 </div>
-                <p className="font-sans text-sm font-medium text-foreground">{opponent || "Соперник"}</p>
+              </div>
+
+              {/* Score */}
+              <div className="text-center">
+                <div className="font-sans text-5xl font-light tracking-tight text-foreground">
+                  {scoreHome}<span className="text-foreground/30 mx-2">:</span>{scoreAway}
+                </div>
+                <div className={`mt-1 font-mono text-xs font-bold ${resultColor}`}>{result}</div>
+              </div>
+
+              {/* Opponent */}
+              <div className="flex flex-col items-center gap-2">
+                <p className="font-sans text-sm font-medium text-foreground text-center">{opponent || "Соперник"}</p>
                 <p className="font-mono text-xs text-foreground/40">{isHome ? "В гостях" : "Дома"}</p>
+                <div className="flex gap-1">
+                  <button onClick={() => setScoreAway((s) => s + 1)} className="flex h-7 w-7 items-center justify-center border border-foreground/20 text-foreground/50 hover:border-foreground/40 hover:text-foreground transition-colors">
+                    <Icon name="Plus" size={11} />
+                  </button>
+                  <button onClick={() => setScoreAway((s) => Math.max(0, s - 1))} className="flex h-7 w-7 items-center justify-center border border-foreground/20 text-foreground/50 hover:border-foreground/40 hover:text-foreground transition-colors">
+                    <Icon name="Minus" size={11} />
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -242,7 +245,7 @@ export default function NewMatch() {
             {/* Tab: Goals */}
             {tab === "goals" && (
               <div className="animate-in fade-in duration-300">
-                <div className="space-y-3 mb-4">
+                <div className="min-h-[60px] space-y-3 mb-4">
                   {goals.length === 0 && (
                     <p className="py-6 text-center font-mono text-xs text-foreground/30">Голы не добавлены</p>
                   )}
@@ -304,7 +307,7 @@ export default function NewMatch() {
             {/* Tab: Cards */}
             {tab === "cards" && (
               <div className="animate-in fade-in duration-300">
-                <div className="space-y-3 mb-4">
+                <div className="min-h-[60px] space-y-3 mb-4">
                   {cards.length === 0 && (
                     <p className="py-6 text-center font-mono text-xs text-foreground/30">Карточки не добавлены</p>
                   )}
@@ -357,7 +360,7 @@ export default function NewMatch() {
             {/* Tab: Subs */}
             {tab === "subs" && (
               <div className="animate-in fade-in duration-300">
-                <div className="space-y-3 mb-4">
+                <div className="min-h-[60px] space-y-3 mb-4">
                   {subs.length === 0 && (
                     <p className="py-6 text-center font-mono text-xs text-foreground/30">Замены не добавлены</p>
                   )}
