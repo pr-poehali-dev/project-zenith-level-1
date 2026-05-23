@@ -92,7 +92,7 @@ export default function NewCareer() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_80%,rgba(225,145,54,0.08)_0%,transparent_60%)]" />
       </div>
 
-      <div className="relative z-10 flex min-h-screen flex-col">
+      <div className="relative z-10 flex h-screen flex-col overflow-hidden">
         <nav className="flex items-center justify-between px-6 py-6 md:px-12">
           <button onClick={() => navigate("/")} className="flex items-center gap-2 transition-transform hover:scale-105">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-foreground/15 backdrop-blur-md">
@@ -106,7 +106,7 @@ export default function NewCareer() {
           </button>
         </nav>
 
-        <div className="flex flex-1 items-start justify-center px-6 py-8 pb-16">
+        <div className="flex flex-1 items-start justify-center overflow-y-auto px-6 py-8 pb-16">
           <div className="w-full max-w-lg">
             {/* Progress */}
             <div className="mb-10 flex items-center gap-3">
@@ -213,12 +213,14 @@ export default function NewCareer() {
                 <p className="mb-6 font-mono text-sm text-foreground/50">/ Добавь игроков своего клуба</p>
 
                 {/* Add player row */}
-                <div className="mb-4 flex gap-2">
+                <form
+                  onSubmit={(e) => { e.preventDefault(); addPlayer() }}
+                  className="mb-4 flex gap-2"
+                >
                   <input
                     type="text"
                     value={newPlayer.name}
                     onChange={(e) => setNewPlayer((p) => ({ ...p, name: e.target.value }))}
-                    onKeyDown={(e) => e.key === "Enter" && addPlayer()}
                     placeholder="Имя игрока"
                     className="flex-1 border-b border-foreground/30 bg-transparent py-2 text-sm text-foreground placeholder:text-foreground/30 focus:border-foreground/60 focus:outline-none"
                   />
@@ -233,14 +235,13 @@ export default function NewCareer() {
                     type="text"
                     value={newPlayer.number}
                     onChange={(e) => setNewPlayer((p) => ({ ...p, number: e.target.value }))}
-                    onKeyDown={(e) => e.key === "Enter" && addPlayer()}
                     placeholder="#"
                     className="w-10 border-b border-foreground/30 bg-transparent py-2 text-center font-mono text-sm text-foreground placeholder:text-foreground/30 focus:border-foreground/60 focus:outline-none"
                   />
-                  <button onClick={addPlayer} className="flex h-8 w-8 items-center justify-center border border-foreground/30 text-foreground/70 transition-colors hover:border-foreground/60 hover:text-foreground self-end">
+                  <button type="submit" className="flex h-8 w-8 items-center justify-center border border-foreground/30 text-foreground/70 transition-colors hover:border-foreground/60 hover:text-foreground self-end">
                     <Icon name="Plus" size={14} />
                   </button>
-                </div>
+                </form>
 
                 {/* Players list */}
                 {players.length > 0 ? (
